@@ -1,7 +1,10 @@
 package model
 
+import "fmt"
+
 //CreateBook inserts a book into a table
 func CreateBook(id int, name, author string) error {
+	fmt.Println("Creating book")
 	insertQ, err := connection.Query("INSERT INTO `bookshop` (`id`, `name`, `author`) VALUES (? , ?, ?)", id, name, author)
 	defer insertQ.Close() 
 	if err!= nil {

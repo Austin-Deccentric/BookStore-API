@@ -2,26 +2,22 @@ package controller
 
 import (
 	"book-api/model"
-	"book-api/views"
 	"encoding/json"
 	"fmt"
 	"net/http"
 )
 
 
-func create(w http.ResponseWriter, r *http.Request) {
+func create(w http.ResponseWriter, r *http.Request,) {
 	if r.Method == http.MethodPost {
 		// take data out of request and save it
-		fmt.Println("recieved request")
-		data := views.PostRequest{}
-		json.NewDecoder(r.Body).Decode(&data)
-		fmt.Println(data)
-		if err := model.CreateBook(data.ID, data.Name, data.Author); err != nil {
+		fmt.Println("recieved POST request")
+		if err := model.CreateBook(value.ID, value.Name, value.Author); err != nil {
 			w.Write([]byte("An error occured writing to database"))
 			return
 		}
 		w.WriteHeader(http.StatusCreated)
-		//json.NewEncoder(w).Encode(data)
+		json.NewEncoder(w).Encode(value)
 
 	} else if r.Method == http.MethodGet {
 			books, err := model.ReadAll()
