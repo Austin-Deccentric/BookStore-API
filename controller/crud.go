@@ -34,10 +34,3 @@ func crud(w http.ResponseWriter, r *http.Request) {
 	} 
 }
 
-// else if r.Method == http.MethodGet {
-// 	data, err := model.ReadAll()
-// 	if err != nil {
-// 		w.Write([]byte(err.Error()))
-// 	}
-// 	w.WriteHeader(http.StatusOK)
-// 	json.NewEncoder(w).Encode(data)

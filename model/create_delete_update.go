@@ -9,7 +9,8 @@ func CreateBook(id int, name, author string) error {
 	return nil
 }
 
-func DeleteBook(id string) error {
+
+func DeleteBook(id int) error {
 	insertQ, err := connection.Query("DELETE FROM BOOKSHOP WHERE id=?", id)
 	defer insertQ.Close() 
 	if err!= nil {

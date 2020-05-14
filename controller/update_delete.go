@@ -8,32 +8,33 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+	"strings"
 )
 
 func updateDel(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodDelete {
 		fmt.Println("delete request recieved")
-			id := r.URL.Path[2:]
-			fmt.Println(id)
-			if err := model.DeleteBook(id); err != nil {
-				w.Write([]byte("Some error"))
-				return
-			}
-			w.WriteHeader(http.StatusOK)
-			json.NewEncoder(w).Encode(struct {
-				Status string `json:"status"`
-			}{"Item Deleted"})
+		id, err := strconv.Atoi(strings.TrimPrefix(r.URL.Path, "/api/v1/books/"))
+		if err != nil {
+				log.Fatal(err)
+			} 
+		fmt.Println(id)
+		if err := model.DeleteBook(id); err != nil {
+			w.Write([]byte("An error occurred while deleting from database"))
+			return
+		}
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(struct {
+			Status string `json:"status"`
+		}{"Item Deleted"})
 		
 	}else if r.Method == http.MethodPut {
-		fmt.Println("Put request recieved", r.URL.Path)
-		keys, ok :=r.URL.Query()["key"]
-		if !ok || len(keys[0]) < 1 {
-			log.Println("Url Pa")
-		}
-		id, err := strconv.Atoi(r.URL.Path[1:])
+		fmt.Println("Put request recieved on", r.URL.String())
+		id, err := strconv.Atoi(strings.TrimPrefix(r.URL.Path, "/api/v1/books/"))
 		if err != nil {
-			log.Fatal(err)
-		}
+				log.Fatal(err)
+			} 
+		fmt.Println(id)
 		data := views.UpdateRequest{}
 		json.NewDecoder(r.Body).Decode(&data)
 		fmt.Println(data)
