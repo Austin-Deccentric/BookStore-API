@@ -2,6 +2,7 @@ package model
 
 import "book-api/views"
 
+// ReadAll displays all data in the table
 func ReadAll() ([]views.PostRequest, error) {
 	rows, err := connection.Query("SELECT * FROM BOOKSHOP")
 	if err != nil {

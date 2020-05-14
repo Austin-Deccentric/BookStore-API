@@ -9,7 +9,7 @@ import (
 )
 
 
-func crud(w http.ResponseWriter, r *http.Request) {
+func create(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
 		// take data out of request and save it
 		fmt.Println("recieved request")

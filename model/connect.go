@@ -7,9 +7,9 @@ import (
 	
 )
 
-var connection *sql.DB   // global sql database
+var connection *sql.DB   // global sql database(Can be accessed by only resources in the model package)
 
-
+// Connect creates the connection to the database 
 func Connect() *sql.DB {
 	db, err := sql.Open("mysql", "austin:DPhil28%.?1@tcp(localhost:3306)/learn_api")
 	if err != nil {

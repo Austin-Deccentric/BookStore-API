@@ -39,7 +39,8 @@ func updateDel(w http.ResponseWriter, r *http.Request) {
 		json.NewDecoder(r.Body).Decode(&data)
 		fmt.Println(data)
 			if err := model.UpdateBook(id, data.Name, data.Author); err != nil {
-				w.Write([]byte("Some error"))
+				w.Write([]byte("Error updating the database"))
+				w.WriteHeader(http.StatusNotModified)
 				return
 			}
 			w.WriteHeader(http.StatusOK)
